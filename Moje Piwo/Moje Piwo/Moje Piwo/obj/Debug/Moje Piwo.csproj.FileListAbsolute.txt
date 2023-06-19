@@ -1,0 +1,16 @@
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.AssemblyReference.cache
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\MainWindow.g.cs
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\App.g.cs
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo_MarkupCompile.cache
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo_MarkupCompile.lref
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\bin\Debug\Moje Piwo.exe.config
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\bin\Debug\Moje Piwo.exe
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\bin\Debug\Moje Piwo.pdb
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\MainWindow.baml
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.g.resources
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje_Piwo.Properties.Resources.resources
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.GenerateResource.cache
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.CoreCompileInputs.cache
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.exe
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.pdb
+C:\Users\zebro\source\repos\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.SuggestedBindingRedirects.cache
