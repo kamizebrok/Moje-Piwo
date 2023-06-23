@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Moje_Piwo"
         mc:Ignorable="d"
-        Title="Moje Piwo" Height="500" Width="800">
+        Title="Moje Piwo" Height="500" Width="900"
+        MinHeight="500" MinWidth="900"
+        ResizeMode="NoResize">
 
 
-    <Grid >
+    <Grid Background="#F0F0F0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition/>
@@ -116,7 +118,7 @@
             
         </StackPanel>
         <Label x:Name="Zapisano" Content="" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom"  FontStyle="Italic"/>
-        <Button Content="Zapisz Piwo" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Width="175" Height="30" Click="Button_Click_2"/>
+        <Button Content="Zapisz Piwo" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Width="175" Height="30" Click="Button_Click_2" Background="#FF008080" Foreground="White" BorderBrush="#FF008080" FontSize="14"/>
         
 
     </Grid>
