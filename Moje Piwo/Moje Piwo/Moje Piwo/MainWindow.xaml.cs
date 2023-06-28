@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Moje_Piwo.Model;
+using MySql.Data.MySqlClient;
 
 namespace Moje_Piwo
 {
@@ -252,6 +254,13 @@ namespace Moje_Piwo
                     zaznaczonyPrzycisk.Background = Brushes.LightYellow;
                 }
             }
+        }
+
+        private void ZapiszDoBazy_Click(object sender, RoutedEventArgs e)
+        {
+            Piwo wczytane_piwo = new Piwo();
+            DataAccess.ReadData();
+            TextBox1.Text = "siema";
         }
     }
 }
