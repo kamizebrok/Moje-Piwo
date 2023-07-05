@@ -9,7 +9,7 @@ namespace Moje_Piwo.Model
 {
     static class DataAccess
     {
-        static SqliteConnection conn = new SqliteConnection(@"Data Source=C:\Users\zebro\piwodb.db");
+        static SqliteConnection conn = new SqliteConnection(@"Data Source=C:\Users\Dell\source\repos\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo");
 
         private static void ReadData(SqliteConnection conn)
         {
@@ -35,7 +35,6 @@ namespace Moje_Piwo.Model
                 string favorite = (string)reader["Favorite"];
                 string CsID = (string)reader["CsID"];
                 string rating = (string)reader["Rating"];
-                //kolejne atyrbuty
                 Console.WriteLine($"{id} {name} {type}");
             }
         }

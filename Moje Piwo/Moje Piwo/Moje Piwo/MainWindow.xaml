@@ -43,11 +43,14 @@
                 Grid.Column="0"
                 Grid.Row="1" Click="UsunZaznaczonyPrzycisk_Click"/>
 
-            <Button Content="Zapisz Listę" 
+            <Button Content="Wczytaj Listę" 
+                Margin="5,2"
+                Grid.Column="0"
+                Grid.Row="1" Click="WczytajZBazy_Click"/>
+            <Button Content="Zapisz Listę do Bazy" 
                 Margin="5,2"
                 Grid.Column="0"
                 Grid.Row="1" Click="ZapiszDoBazy_Click"/>
-            
         </StackPanel>
         <TextBox 
             x:Name="NazwaPiwa"
