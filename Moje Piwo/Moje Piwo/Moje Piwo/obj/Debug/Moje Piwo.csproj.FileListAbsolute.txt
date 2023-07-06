@@ -163,12 +163,10 @@ D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\bin\Debug\Uno.Diagnostics.Eventing.pd
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\bin\Debug\Uno.Foundation.Logging.pdb
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.AssemblyReference.cache
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.SuggestedBindingRedirects.cache
-D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\MainWindow.g.cs
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\View\Compare.g.cs
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\App.g.cs
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo_MarkupCompile.cache
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo_MarkupCompile.lref
-D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\MainWindow.baml
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\View\Compare.baml
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.g.resources
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje_Piwo.Properties.Resources.resources
@@ -177,3 +175,5 @@ D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.CoreCompil
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.csproj.CopyComplete
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.exe
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.pdb
+D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\View\MainWindow.g.cs
+D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\View\MainWindow.baml
