@@ -15,7 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Data.Sqlite;
 using Moje_Piwo.Model;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
+
 
 namespace Moje_Piwo
 {
@@ -27,7 +28,7 @@ namespace Moje_Piwo
 
     public partial class MainWindow : Window
     {
-        private string databasePath = "C:\\Users\\Dell\\source\\repos\\Moje-Piwo\\Moje Piwo\\Moje Piwo\\piwo.db";
+        string connectionString = "Data Source=D:\\Moje-Piwo\\Moje Piwo\\Moje Piwo\\Moje Piwo\\piwo.db;Version=3;";
 
         public MainWindow()
         {
@@ -130,14 +131,14 @@ namespace Moje_Piwo
                 TextBox7.Text = current_piwo.Kraj;
                 TextBox8.Text = current_piwo.Koncern;
 
-                
+
                 if (current_piwo.Ocena == 1.0) { RadioButton1.IsChecked = true; }
                 else if (current_piwo.Ocena == 2.0) { RadioButton2.IsChecked = true; }
                 else if (current_piwo.Ocena == 3.0) { RadioButton3.IsChecked = true; }
                 else if (current_piwo.Ocena == 4.0) { RadioButton4.IsChecked = true; }
                 else if (current_piwo.Ocena == 5.0) { RadioButton5.IsChecked = true; }
-                
-                if(current_piwo.Ulubione)
+
+                if (current_piwo.Ulubione)
                 {
                     zaznaczonyPrzycisk.Background = Brushes.LightYellow;
                     CheckBox1.IsChecked = true;
@@ -173,7 +174,7 @@ namespace Moje_Piwo
                 TextBox1.Text = "Nie zapisano, być może zapomniałeś najpierw zaznaczyć swoje piwo :)";
                 Zapisano.Content = "Nie zapisano piwa :(";
             }
-            
+
 
 
         }
@@ -262,13 +263,15 @@ namespace Moje_Piwo
         {
             List<Piwo> piwka = new List<Piwo>();
 
-            using (SqliteConnection connection = new SqliteConnection($"Data Source={databasePath};Version=3;"))
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            try
             {
                 connection.Open();
+
                 string selectQuery = "SELECT * FROM Beer";
-                using (SqliteCommand command = new SqliteCommand(selectQuery, connection))
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                 {
-                    using (SqliteDataReader reader = command.ExecuteReader())
+                    using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -280,9 +283,9 @@ namespace Moje_Piwo
                             string opis = reader["Description"].ToString();
                             string cena = reader["Price"].ToString();
                             string browar = reader["Brewery"].ToString();
-                            string kraj= reader["Country"].ToString();
+                            string kraj = reader["Country"].ToString();
                             string koncern = reader["Concern"].ToString();
-                            bool fav = (bool)reader["Favorite"];
+                            bool fav = Convert.ToBoolean(reader["Favorite"]);
                             string csid = reader["CsID"].ToString();
                             double ocena = Convert.ToDouble(reader["Rating"]);
 
@@ -291,6 +294,10 @@ namespace Moje_Piwo
                         }
                     }
                 }
+            }
+            catch (SQLiteException ex)
+            {
+
             }
 
         }
@@ -316,11 +323,12 @@ namespace Moje_Piwo
                     bool fav = current_piwo.Ulubione;
                     string csid = current_piwo.PiwoID;
 
-                    using (SqliteConnection connection = new SqliteConnection($"Data Source={databasePath};Version=3;"))
+                    SQLiteConnection connection = new SQLiteConnection(connectionString);
+                    try
                     {
                         connection.Open();
                         string insertQuery = "INSERT INTO Beer (id_beer, Name, Type, Voltage, Extract, Description, Price, Brewery, Country, Concern, Favorite, CsID, Rating) VALUES (@idpiwo, @nazwa, @rodzaj, @procent, @ekstrakt, @opis, @cena, @browar, @kraj, @koncern, @fav, @csid, @ocena)";
-                        using (SqliteCommand command = new SqliteCommand(insertQuery, connection))
+                        using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@idpiwo", idpiwo);
                             command.Parameters.AddWithValue("@opis", opis);
@@ -338,10 +346,17 @@ namespace Moje_Piwo
                             command.ExecuteNonQuery();
                         }
                     }
+                    catch (SQLiteException ex)
+                    {
+                        // Handle the exception
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
             MessageBox.Show("Osoba została zapisana do bazy danych.");
-
         }
     }
 }

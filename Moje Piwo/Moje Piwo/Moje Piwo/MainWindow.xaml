@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Moje_Piwo"
         mc:Ignorable="d"
-        Title="Moje Piwo" Height="500" Width="900"
-        MinHeight="500" MinWidth="900"
+        Title="Moje Piwo" Height="600" Width="1000"
+        MinHeight="600" MinWidth="1000"
         ResizeMode="NoResize">
 
 
