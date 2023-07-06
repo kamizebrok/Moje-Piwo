@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Data.Sqlite;
 using Moje_Piwo.Model;
 using System.Data.SQLite;
-
+using System.IO;
 
 namespace Moje_Piwo.View
 {
@@ -158,6 +158,7 @@ namespace Moje_Piwo.View
             Piwo current_piwo = piwa.Find(piwo => piwo.PiwoID == id_button);
             if (current_piwo != null)
             {
+                current_piwo.Nazwa = NazwaPiwa.Text;
                 current_piwo.Opis = TextBox1.Text;
                 Zapisano.Content = "Pomyślnie zapisano piwo!";
                 current_piwo.Rodzaj = TextBox2.Text;
