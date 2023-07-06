@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Data.Sqlite;
 using Moje_Piwo.Model;
 using System.Data.SQLite;
-using System.IO;
+
 
 namespace Moje_Piwo.View
 {
@@ -328,28 +328,32 @@ namespace Moje_Piwo.View
                     try
                     {
                         connection.Open();
-                        string insertQuery = "INSERT INTO Beer (id_beer, Name, Type, Voltage, Extract, Description, Price, Brewery, Country, Concern, Favorite, CsID, Rating) VALUES (@idpiwo, @nazwa, @rodzaj, @procent, @ekstrakt, @opis, @cena, @browar, @kraj, @koncern, @fav, @csid, @ocena)";
-                        using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                        string selectMaxIdQuery = "SELECT MAX(id_beer) FROM Beer";
+                        using (SQLiteCommand maxIdCommand = new SQLiteCommand(selectMaxIdQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@idpiwo", idpiwo);
-                            command.Parameters.AddWithValue("@opis", opis);
-                            command.Parameters.AddWithValue("@cena", cena);
-                            command.Parameters.AddWithValue("@nazwa", nazwa);
-                            command.Parameters.AddWithValue("@rodzaj", rodzaj);
-                            command.Parameters.AddWithValue("@procent", procent);
-                            command.Parameters.AddWithValue("@ekstrakt", ekstrakt);
-                            command.Parameters.AddWithValue("@browar", browar);
-                            command.Parameters.AddWithValue("@kraj", kraj);
-                            command.Parameters.AddWithValue("@koncern", koncern);
-                            command.Parameters.AddWithValue("@fav", fav);
-                            command.Parameters.AddWithValue("@csid", csid);
-                            command.Parameters.AddWithValue("@ocena", ocena);
-                            command.ExecuteNonQuery();
+                            object result = maxIdCommand.ExecuteScalar();
+                            int maxId = Convert.ToInt32(result);
+                            int newId = maxId + 1;
+
+                            string insertQuery = "INSERT INTO Beer (id_beer, Name, Type, Voltage, Extract, Description, Price, Brewery, Country, Concern, Favorite, CsID, Rating) VALUES (@idpiwo, @nazwa, @rodzaj, @procent, @ekstrakt, @opis, @cena, @browar, @kraj, @koncern, @fav, @csid, @ocena)";
+                            using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                            {
+                                command.Parameters.AddWithValue("@idpiwo", newId);
+                                command.Parameters.AddWithValue("@opis", opis);
+                                command.Parameters.AddWithValue("@cena", cena);
+                                command.Parameters.AddWithValue("@nazwa", nazwa);
+                                command.Parameters.AddWithValue("@rodzaj", rodzaj);
+                                command.Parameters.AddWithValue("@procent", procent);
+                                command.Parameters.AddWithValue("@ekstrakt", ekstrakt);
+                                command.Parameters.AddWithValue("@browar", browar);
+                                command.Parameters.AddWithValue("@kraj", kraj);
+                                command.Parameters.AddWithValue("@koncern", koncern);
+                                command.Parameters.AddWithValue("@fav", fav);
+                                command.Parameters.AddWithValue("@csid", csid);
+                                command.Parameters.AddWithValue("@ocena", ocena);
+                                command.ExecuteNonQuery();
+                            }
                         }
-                    }
-                    catch (SQLiteException ex)
-                    {
-                        // Handle the exception
                     }
                     finally
                     {
