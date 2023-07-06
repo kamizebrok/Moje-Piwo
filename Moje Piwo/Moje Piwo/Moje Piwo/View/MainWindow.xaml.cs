@@ -44,13 +44,39 @@ namespace Moje_Piwo.View
 
         private void UsunZaznaczonyPrzycisk_Click(object sender, RoutedEventArgs e)
         {
-            // Upewnij się, że jest zaznaczony przycisk
             if (zaznaczonyPrzycisk != null)
             {
+                Piwo current_piwo = piwa.Find(piwo => piwo.PiwoID == id_button);
                 ListBoxElementy.Items.Remove(zaznaczonyPrzycisk);
                 przyciski.Remove(zaznaczonyPrzycisk);
                 zaznaczonyPrzycisk = null;
                 counter--;
+                if (current_piwo != null)
+                {
+                    SQLiteConnection connection = new SQLiteConnection(connectionString);
+                    try
+                    {
+                        connection.Open();
+
+                        string deleteQuery = "DELETE FROM Beer WHERE CsID = @Id";
+                        using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@Id", current_piwo.PiwoID);
+                            command.ExecuteNonQuery();
+                        }
+
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                    MessageBox.Show("Piwo zostalo usunięte z bazy danych.");
+                }
+
+                else
+                {
+                    MessageBox.Show("Wybierz piwo do usunięcia.");
+                }
             }
         }
 
@@ -301,6 +327,47 @@ namespace Moje_Piwo.View
 
             }
 
+            foreach (Piwo piwo in piwka)
+            {
+                counter += 1;
+                Button nowyButton = new Button();
+                nowyButton.Content = piwo.Nazwa;
+                NazwaPiwa.Text = nowyButton.Content.ToString();
+                nowyButton.Width = 145;
+                nowyButton.Height = 25;
+                nowyButton.Click += Element_Click;
+                nowyButton.Tag = piwo.PiwoID;
+
+                przyciski.Add(nowyButton);
+                ListBoxElementy.Items.Add(nowyButton);
+
+                if (zaznaczonyPrzycisk != null)
+                {
+                    zaznaczonyPrzycisk.Background = Brushes.LightGray;
+                    zaznaczonyPrzycisk = null;
+                }
+                nowyButton.Background = Brushes.LightBlue;
+                zaznaczonyPrzycisk = nowyButton;
+                id_button = nowyButton.Tag.ToString();
+
+                TextBox1.Text = piwo.Opis;
+                TextBox2.Text = piwo.Rodzaj;
+                TextBox3.Text = piwo.Ekstrakt;
+                TextBox4.Text = piwo.Cena;
+                TextBox5.Text = piwo.Procent;
+                TextBox6.Text = piwo.Browar;
+                TextBox7.Text = piwo.Kraj;
+                TextBox8.Text = piwo.Koncern;
+                CheckBox1.IsChecked = false;
+                if (piwo.Ulubione) { CheckBox1.IsChecked = true; }
+                RadioButton1.IsChecked = false;
+                RadioButton2.IsChecked = false;
+                RadioButton3.IsChecked = false;
+                RadioButton4.IsChecked = false;
+                RadioButton5.IsChecked = false;
+                Zapisano.Content = "";
+                piwa.Add(piwo);
+            }
         }
 
         private void ZapiszDoBazy_Click(object sender, RoutedEventArgs e)
