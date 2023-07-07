@@ -177,3 +177,4 @@ D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.exe
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\Moje Piwo.pdb
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\View\MainWindow.g.cs
 D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\View\MainWindow.baml
+D:\Moje-Piwo\Moje Piwo\Moje Piwo\Moje Piwo\obj\Debug\GeneratedInternalTypeHelper.g.cs
