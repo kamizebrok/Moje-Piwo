@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace Moje_Piwo.ViewModel
 {
@@ -23,6 +24,8 @@ namespace Moje_Piwo.ViewModel
         public ICommand DodajPiwoCommand { get; }
         public ICommand ZapiszPiwoCommand { get; }
         public ICommand ElClick { get; }
+        public ICommand ShowStatisticsCommand { get; }
+
         private bool zapisEnabled;
         public bool ZapisEnabled
         {
@@ -72,7 +75,7 @@ namespace Moje_Piwo.ViewModel
                 if (nazwaPiwa != value)
                 {
                     nazwaPiwa = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(nazwaPiwa));
                 }
             }
         }
@@ -86,7 +89,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox1Text != value)
                 {
                     textBox1Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox1Text));
                 }
             }
         }
@@ -100,7 +103,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox2Text != value)
                 {
                     textBox2Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox2Text));
                 }
             }
         }
@@ -114,7 +117,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox3Text != value)
                 {
                     textBox3Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox3Text));
                 }
             }
         }
@@ -128,7 +131,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox4Text != value)
                 {
                     textBox4Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox4Text));
                 }
             }
         }
@@ -142,7 +145,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox5Text != value)
                 {
                     textBox5Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox5Text));
                 }
             }
         }
@@ -156,7 +159,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox6Text != value)
                 {
                     textBox6Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox6Text));
                 }
             }
         }
@@ -170,7 +173,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox7Text != value)
                 {
                     textBox7Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox7Text));
                 }
             }
         }
@@ -184,7 +187,7 @@ namespace Moje_Piwo.ViewModel
                 if (textBox8Text != value)
                 {
                     textBox8Text = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(textBox8Text));
                 }
             }
         }
@@ -198,7 +201,7 @@ namespace Moje_Piwo.ViewModel
                 if (checkBox1Checked != value)
                 {
                     checkBox1Checked = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(CheckBox1Checked));
                 }
             }
         }
@@ -212,7 +215,7 @@ namespace Moje_Piwo.ViewModel
                 if (radioButton1Checked != value)
                 {
                     radioButton1Checked = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(RadioButton1Checked));
                 }
             }
         }
@@ -226,7 +229,7 @@ namespace Moje_Piwo.ViewModel
                 if (radioButton2Checked != value)
                 {
                     radioButton2Checked = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(RadioButton2Checked));
                 }
             }
         }
@@ -240,7 +243,7 @@ namespace Moje_Piwo.ViewModel
                 if (radioButton3Checked != value)
                 {
                     radioButton3Checked = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(RadioButton3Checked));
                 }
             }
         }
@@ -254,7 +257,7 @@ namespace Moje_Piwo.ViewModel
                 if (radioButton4Checked != value)
                 {
                     radioButton4Checked = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(RadioButton4Checked));
                 }
             }
         }
@@ -268,7 +271,7 @@ namespace Moje_Piwo.ViewModel
                 if (radioButton5Checked != value)
                 {
                     radioButton5Checked = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(RadioButton5Checked));
                 }
             }
         }
@@ -282,7 +285,7 @@ namespace Moje_Piwo.ViewModel
                 if (zapisanoContent != value)
                 {
                     zapisanoContent = value;
-                    onPropertyChange();
+                    onPropertyChange(nameof(ZapisanoContent));
                 }
             }
         }
@@ -296,6 +299,7 @@ namespace Moje_Piwo.ViewModel
             ButtonClick = new RelayCommand(Button_Click);
             DodajPiwoCommand = new RelayCommand(Button_Click_1);
             ZapiszPiwoCommand = new RelayCommand(Button_Click_2);
+            ShowStatisticsCommand = new RelayCommand(ExecuteShowStatistics);
             ListBoxItems = new ObservableCollection<Button>();
             ZapisEnabled = false;
             UsunEnabled = false;
@@ -437,7 +441,11 @@ namespace Moje_Piwo.ViewModel
             NazwaPiwa = kliknietyButton.Content.ToString();
             Piwo current_piwo = piwa.Find(piwo => piwo.PiwoID == id_button);
             CheckBox1Checked = false;
-
+            RadioButton1Checked = false;
+            RadioButton2Checked = false;
+            RadioButton3Checked = false;
+            RadioButton4Checked = false;
+            RadioButton5Checked = false;
             if (current_piwo != null)
             {
                 TextBox1Text = current_piwo.Opis;
@@ -448,13 +456,11 @@ namespace Moje_Piwo.ViewModel
                 TextBox6Text = current_piwo.Browar;
                 TextBox7Text = current_piwo.Kraj;
                 TextBox8Text = current_piwo.Koncern;
-
-
-                if (current_piwo.Ocena == 1.0) { RadioButton1Checked = true; onPropertyChange(nameof(RadioButton1Checked)); }
-                else if (current_piwo.Ocena == 2.0) { RadioButton2Checked = true; onPropertyChange(nameof(RadioButton2Checked)); }
-                else if (current_piwo.Ocena == 3.0) { RadioButton3Checked = true; onPropertyChange(nameof(RadioButton3Checked)); }
-                else if (current_piwo.Ocena == 4.0) { RadioButton4Checked = true; onPropertyChange(nameof(RadioButton4Checked)); }
-                else if (current_piwo.Ocena == 5.0) { RadioButton5Checked = true; onPropertyChange(nameof(RadioButton5Checked)); }
+                if (current_piwo.Ocena == 1) { RadioButton1Checked = true;}
+                else if (current_piwo.Ocena == 2) { RadioButton2Checked = true;}
+                else if (current_piwo.Ocena == 3) { RadioButton3Checked = true;}
+                else if (current_piwo.Ocena == 4) { RadioButton4Checked = true;}
+                else if (current_piwo.Ocena == 5) { RadioButton5Checked = true;}
 
                 if (current_piwo.Ulubione)
                 {
@@ -508,6 +514,12 @@ namespace Moje_Piwo.ViewModel
                 current_piwo.Browar = TextBox6Text;
                 current_piwo.Kraj = TextBox7Text;
                 current_piwo.Koncern = TextBox8Text;
+                if (RadioButton1Checked) { current_piwo.Ocena = 1; }
+                else if (RadioButton2Checked) { current_piwo.Ocena = 2; }
+                else if (RadioButton3Checked) { current_piwo.Ocena = 3; }
+                else if (RadioButton4Checked) { current_piwo.Ocena = 4; }
+                else if (RadioButton5Checked) { current_piwo.Ocena = 5; }
+                if (CheckBox1Checked) { current_piwo.Ulubione = true; } else { current_piwo.Ulubione = false; }
                 zaznaczonyPrzycisk.Content = NazwaPiwa;
             }
             else
@@ -523,6 +535,63 @@ namespace Moje_Piwo.ViewModel
 
         }
 
+        public Piwo FindPiwoWithHighestOcena()
+        {
+            if (piwa.Count == 0)
+            {
+                return null; // Return null if the list is empty
+            }
+
+            double maxOcena = double.MinValue;
+            Piwo piwoWithHighestOcena = null;
+
+            foreach (Piwo piwo in piwa)
+            {
+                if (piwo.Ulubione == true) {
+                    if (piwo.Ocena > maxOcena)
+                    {
+                        maxOcena = piwo.Ocena;
+                        piwoWithHighestOcena = piwo;
+                    }
+                }
+            }
+
+            return piwoWithHighestOcena;
+        }
+
+        public Piwo FindMostCostEfficientPiwo()
+        {
+            if (piwa.Count == 0)
+            {
+                return null; // Return null if the list is empty
+            }
+
+            double maxRatio = double.MinValue;
+            Piwo mostCostEfficientPiwo = null;
+
+            foreach (Piwo piwo in piwa)
+            {
+                double ratio = piwo.Ocena / double.Parse(piwo.Cena);
+                if (ratio > maxRatio)
+                {
+                    maxRatio = ratio;
+                    mostCostEfficientPiwo = piwo;
+                }
+            }
+
+            return mostCostEfficientPiwo;
+        }
+
+        private void ExecuteShowStatistics()
+        {
+            Piwo ho = FindPiwoWithHighestOcena();
+            Piwo ce = FindMostCostEfficientPiwo();
+            // Create the pop-up window
+            MessageBox.Show($"Najwyżej oceniane Piwo z ulubionych: {ho.Nazwa}\nNajbardziej opłacalne Piwo: {ce.Nazwa}",
+                            "Statistics",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+        }
 
         private void RadioButton1_Checked(object sender, RoutedEventArgs e)
         {
@@ -634,9 +703,9 @@ namespace Moje_Piwo.ViewModel
                     }
                 }
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
-
+                
             }
 
             foreach (Piwo piwo in piwka)
@@ -672,11 +741,6 @@ namespace Moje_Piwo.ViewModel
                 TextBox8Text = piwo.Koncern;
                 CheckBox1Checked = false;
                 if (piwo.Ulubione) { CheckBox1Checked = true; }
-                RadioButton1Checked = false;
-                RadioButton2Checked = false;
-                RadioButton3Checked = false;
-                RadioButton4Checked = false;
-                RadioButton5Checked = false;
                 ZapisanoContent = "";
                 piwa.Add(piwo);
             }
@@ -707,30 +771,70 @@ namespace Moje_Piwo.ViewModel
                     try
                     {
                         connection.Open();
-                        string selectMaxIdQuery = "SELECT MAX(id_beer) FROM Beer";
-                        using (SQLiteCommand maxIdCommand = new SQLiteCommand(selectMaxIdQuery, connection))
-                        {
-                            object result = maxIdCommand.ExecuteScalar();
-                            int maxId = Convert.ToInt32(result);
-                            int newId = maxId + 1;
 
-                            string insertQuery = "INSERT INTO Beer (id_beer, Name, Type, Voltage, Extract, Description, Price, Brewery, Country, Concern, Favorite, CsID, Rating) VALUES (@idpiwo, @nazwa, @rodzaj, @procent, @ekstrakt, @opis, @cena, @browar, @kraj, @koncern, @fav, @csid, @ocena)";
-                            using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                        // Check if the beer with the same CsID exists
+                        string selectQuery = "SELECT COUNT(*) FROM Beer WHERE CsID = @csid";
+                        using (SQLiteCommand selectCommand = new SQLiteCommand(selectQuery, connection))
+                        {
+                            selectCommand.Parameters.AddWithValue("@csid", csid);
+                            int count = Convert.ToInt32(selectCommand.ExecuteScalar());
+
+                            if (count > 0)
                             {
-                                command.Parameters.AddWithValue("@idpiwo", newId);
-                                command.Parameters.AddWithValue("@opis", opis);
-                                command.Parameters.AddWithValue("@cena", cena);
-                                command.Parameters.AddWithValue("@nazwa", nazwa);
-                                command.Parameters.AddWithValue("@rodzaj", rodzaj);
-                                command.Parameters.AddWithValue("@procent", procent);
-                                command.Parameters.AddWithValue("@ekstrakt", ekstrakt);
-                                command.Parameters.AddWithValue("@browar", browar);
-                                command.Parameters.AddWithValue("@kraj", kraj);
-                                command.Parameters.AddWithValue("@koncern", koncern);
-                                command.Parameters.AddWithValue("@fav", fav);
-                                command.Parameters.AddWithValue("@csid", csid);
-                                command.Parameters.AddWithValue("@ocena", ocena);
-                                command.ExecuteNonQuery();
+                                // Beer with the same CsID exists, perform update
+                                string updateQuery = @"UPDATE Beer SET
+                            Name = @nazwa,
+                            Type = @rodzaj,
+                            Voltage = @procent,
+                            Extract = @ekstrakt,
+                            Description = @opis,
+                            Price = @cena,
+                            Brewery = @browar,
+                            Country = @kraj,
+                            Concern = @koncern,
+                            Favorite = @fav,
+                            Rating = @ocena
+                            WHERE CsID = @csid";
+
+                                using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
+                                {
+                                    updateCommand.Parameters.AddWithValue("@nazwa", nazwa);
+                                    updateCommand.Parameters.AddWithValue("@rodzaj", rodzaj);
+                                    updateCommand.Parameters.AddWithValue("@procent", procent);
+                                    updateCommand.Parameters.AddWithValue("@ekstrakt", ekstrakt);
+                                    updateCommand.Parameters.AddWithValue("@opis", opis);
+                                    updateCommand.Parameters.AddWithValue("@cena", cena);
+                                    updateCommand.Parameters.AddWithValue("@browar", browar);
+                                    updateCommand.Parameters.AddWithValue("@kraj", kraj);
+                                    updateCommand.Parameters.AddWithValue("@koncern", koncern);
+                                    updateCommand.Parameters.AddWithValue("@fav", fav);
+                                    updateCommand.Parameters.AddWithValue("@ocena", ocena);
+                                    updateCommand.Parameters.AddWithValue("@csid", csid);
+                                    updateCommand.ExecuteNonQuery();
+                                }
+                            }
+                            else
+                            {
+                                // Beer with the same CsID doesn't exist, perform insert
+                                string insertQuery = @"INSERT INTO Beer (id_beer, Name, Type, Voltage, Extract, Description, Price, Brewery, Country, Concern, Favorite, CsID, Rating) 
+                            VALUES ((SELECT COALESCE(MAX(id_beer), 0) FROM Beer) + 1, @nazwa, @rodzaj, @procent, @ekstrakt, @opis, @cena, @browar, @kraj, @koncern, @fav, @csid, @ocena)";
+
+                                using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+                                {
+                                    insertCommand.Parameters.AddWithValue("@nazwa", nazwa);
+                                    insertCommand.Parameters.AddWithValue("@rodzaj", rodzaj);
+                                    insertCommand.Parameters.AddWithValue("@procent", procent);
+                                    insertCommand.Parameters.AddWithValue("@ekstrakt", ekstrakt);
+                                    insertCommand.Parameters.AddWithValue("@opis", opis);
+                                    insertCommand.Parameters.AddWithValue("@cena", cena);
+                                    insertCommand.Parameters.AddWithValue("@browar", browar);
+                                    insertCommand.Parameters.AddWithValue("@kraj", kraj);
+                                    insertCommand.Parameters.AddWithValue("@koncern", koncern);
+                                    insertCommand.Parameters.AddWithValue("@fav", fav);
+                                    insertCommand.Parameters.AddWithValue("@csid", csid);
+                                    insertCommand.Parameters.AddWithValue("@ocena", ocena);
+                                    insertCommand.ExecuteNonQuery();
+                                }
                             }
                         }
                     }
@@ -738,6 +842,7 @@ namespace Moje_Piwo.ViewModel
                     {
                         connection.Close();
                     }
+
                     if (ListBoxItems.Count == 0)
                     {
                         IsOverlayVisible = "Visible";
@@ -745,10 +850,10 @@ namespace Moje_Piwo.ViewModel
                     else
                     {
                         IsOverlayVisible = "Hidden";
-                    }  
+                        MessageBox.Show("Piwo zostało zapisane do bazy danych.");
+                    }
                 }
             }
         }
-
     }
 }

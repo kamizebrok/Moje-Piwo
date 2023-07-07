@@ -29,6 +29,7 @@
             <ListBox ItemsSource="{Binding ListBoxItems}" Width="160" Height="320" Margin="10,10,10,10">
                 <!-- Add the necessary ListBoxItem template here -->
             </ListBox>
+            <Button Content="Pokaż statystyki" Margin="5" Command="{Binding ShowStatisticsCommand}" />
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="10,0" VerticalAlignment="Top">
             <Button Content="Dodaj Piwo" Margin="5,2" Command="{Binding DodajPiwoCommand}" />
