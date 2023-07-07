@@ -21,20 +21,20 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="1.2*" />
         </Grid.RowDefinitions>
-
+        
         <StackPanel></StackPanel>
         <Label Content="Twoje Piwa" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontStyle="Italic" />
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0">
-            <ListBox ItemsSource="{Binding ListBoxItems}" Width="160" Height="320" Margin="10,10,10,10" SelectedItem="{Binding SelectedPiwo}">
+            <ListBox ItemsSource="{Binding ListBoxItems}" Width="160" Height="320" Margin="10,10,10,10">
                 <!-- Add the necessary ListBoxItem template here -->
             </ListBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="10,0" VerticalAlignment="Top">
             <Button Content="Dodaj Piwo" Margin="5,2" Command="{Binding DodajPiwoCommand}" />
-            <Button Content="Usuń Piwo" Margin="5,2" Grid.Column="0" Grid.Row="1" Command="{Binding UsunZaznaczonyPrzycisk}" />
+            <Button Content="Usuń Piwo" Margin="5,2" Grid.Column="0" Grid.Row="1" Command="{Binding UsunZaznaczonyPrzycisk}" IsEnabled="{Binding UsunEnabled}"/>
             <Button Content="Wczytaj Listę" Margin="5,2" Grid.Column="0" Grid.Row="1" Command="{Binding WczytajZBazyCommand}" />
-            <Button Content="Zapisz Listę do Bazy" Margin="5,2" Grid.Column="0" Grid.Row="1" Command="{Binding ZapiszDoBazyCommand}" />
+            <Button Content="Zapisz do Bazy" Margin="5,2" Grid.Column="0" Grid.Row="1" Command="{Binding ZapiszDoBazyCommand}" IsEnabled="{Binding ZapisEnabled}"/>
         </StackPanel>
         <TextBox x:Name="NazwaPiwa" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Text="{Binding NazwaPiwa}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontStyle="Italic" FontWeight="Bold" FontSize="17" />
         <StackPanel Grid.Column="1" VerticalAlignment="Stretch" Grid.Row="1">
@@ -93,6 +93,8 @@
         </StackPanel>
         <Label x:Name="Zapisano" Content="{Binding ZapisanoContent}" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom" FontStyle="Italic" />
         <Button Content="Zapisz Piwo" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Width="175" Height="30" Command="{Binding ZapiszPiwoCommand}" Background="#FF008080" Foreground="White" BorderBrush="#FF008080" FontSize="14" />
-
+        <Grid Grid.Column="1" Grid.RowSpan="3" x:Name="Overlay" Background="#60000000" Visibility="{Binding IsOverlayVisible}">
+            <TextBlock Text="Wybierz piwo z listy lub dodaj nowe" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
+        </Grid>
     </Grid>
 </Window>

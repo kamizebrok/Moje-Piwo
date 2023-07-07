@@ -23,7 +23,45 @@ namespace Moje_Piwo.ViewModel
         public ICommand DodajPiwoCommand { get; }
         public ICommand ZapiszPiwoCommand { get; }
         public ICommand ElClick { get; }
-
+        private bool zapisEnabled;
+        public bool ZapisEnabled
+        {
+            get { return zapisEnabled; }
+            set
+            {
+                if (zapisEnabled != value)
+                {
+                    zapisEnabled = value;
+                    onPropertyChange(nameof(ZapisEnabled));
+                }
+            }
+        }
+        private bool usunEnabled;
+        public bool UsunEnabled
+        {
+            get { return usunEnabled; }
+            set
+            {
+                if (usunEnabled != value)
+                {
+                    usunEnabled = value;
+                    onPropertyChange(nameof(UsunEnabled));
+                }
+            }
+        }
+        private string isOverlayVisible;
+        public string IsOverlayVisible
+        {
+            get { return isOverlayVisible; }
+            set
+            {
+                if (isOverlayVisible != value)
+                {
+                    isOverlayVisible = value;
+                    onPropertyChange(nameof(IsOverlayVisible));
+                }
+            }
+        }
 
         private string nazwaPiwa;
         public string NazwaPiwa
@@ -259,6 +297,10 @@ namespace Moje_Piwo.ViewModel
             DodajPiwoCommand = new RelayCommand(Button_Click_1);
             ZapiszPiwoCommand = new RelayCommand(Button_Click_2);
             ListBoxItems = new ObservableCollection<Button>();
+            ZapisEnabled = false;
+            UsunEnabled = false;
+            IsOverlayVisible = "Visible";
+            WczytajZBazy();
         }
 
         int counter = 0;
@@ -302,6 +344,12 @@ namespace Moje_Piwo.ViewModel
                 else
                 {
                     MessageBox.Show("Wybierz piwo do usunięcia.");
+                }
+                if (ListBoxItems.Count == 0)
+                {
+                    IsOverlayVisible = "Visible";
+                    UsunEnabled = false;
+                    ZapisEnabled = false;
                 }
             }
         }
@@ -366,6 +414,9 @@ namespace Moje_Piwo.ViewModel
             ZapisanoContent = "";
             Piwo newPiwo = new Piwo(id_button, TextBox1Text);
             piwa.Add(newPiwo);
+            ZapisEnabled = true;
+            UsunEnabled = true;
+            IsOverlayVisible = "Hidden";
             UpdateAll();
         }
 
@@ -417,6 +468,9 @@ namespace Moje_Piwo.ViewModel
             }
 
             ZapisanoContent = "";
+            UsunEnabled = true;
+            ZapisEnabled = true;
+            IsOverlayVisible = "Hidden";
             UpdateAll();
         }
 
@@ -461,9 +515,6 @@ namespace Moje_Piwo.ViewModel
                 TextBox1Text = "Nie zapisano, być może zapomniałeś najpierw zaznaczyć swoje piwo :)";
                 ZapisanoContent = "Nie zapisano piwa :(";
             }
-
-
-
         }
 
 
@@ -548,8 +599,9 @@ namespace Moje_Piwo.ViewModel
 
         private void WczytajZBazy()
         {
+            int counter = 0;
             List<Piwo> piwka = new List<Piwo>();
-
+            ListBoxItems.Clear();
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
             {
@@ -686,6 +738,14 @@ namespace Moje_Piwo.ViewModel
                     {
                         connection.Close();
                     }
+                    if (ListBoxItems.Count == 0)
+                    {
+                        IsOverlayVisible = "Visible";
+                    }
+                    else
+                    {
+                        IsOverlayVisible = "Hidden";
+                    }  
                 }
             }
         }
